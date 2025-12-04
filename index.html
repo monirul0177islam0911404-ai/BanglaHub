@@ -6,162 +6,56 @@
 <title>BanglaHub</title>
 
 <style>
-/* THEME COLORS */
 :root{
-  --bg:#061416;
-  --header:#082326;
-  --card:#0d2628;
-  --accent:#00c2ff;
-  --muted:#90a7a7;
-  --shadow:rgba(0,0,0,0.55);
+  --bg:#07181a;
+  --card:#0f2a2b;
+  --muted:#9fb0b0;
+  --accent:#ffb400;
+  --like:#184b56;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#fff}
+
+/* header */
+.header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#0b3a3b}
+.brand{font-weight:800;font-size:20px}
+.join{background:#00c2ff;color:#002;padding:6px 10px;border-radius:8px;text-decoration:none;font-weight:700}
+
+/* grid desktop 4, mobile 2 */
+.container{max-width:1200px;margin:14px auto;padding:0 12px}
+.video-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1024px){.video-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.video-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* fix BLUE text issue */
+.video-grid a{
+  color:inherit !important;
+  text-decoration:none !important;
 }
 
-/* RESET */
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  background:var(--bg);
-  font-family:Arial,Helvetica,sans-serif;
-  color:#fff;
-}
+/* card */
+.card{background:var(--card);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.thumb-wrap{position:relative;width:100%;padding-top:100%;background:#000}
+.thumb-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px}
 
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 16px;
-  background:var(--header);
-  border-bottom:1px solid #073034;
-}
-.brand{
-  font-size:21px;
-  font-weight:800;
-}
-.join{
-  background:var(--accent);
-  color:#002;
-  padding:6px 12px;
-  font-weight:700;
-  border-radius:8px;
-  text-decoration:none;
-}
-
-/* MAIN GRID */
-.container{
-  max-width:1200px;
-  margin:16px auto;
-  padding:0 12px;
-}
-
-.video-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
-/* Mobile = 2 */
-@media(max-width:850px){
-  .video-grid{grid-template-columns:repeat(2,1fr);}
-}
-
-/* Card */
-.card{
-  background:var(--card);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 4px 12px rgba(0,0,0,0.45);
-  transition:0.25s;
-}
-.card:hover{
-  transform:scale(1.03);
-}
-
-/* Thumb */
-.thumb-wrap{
-  position:relative;
-  width:100%;
-  padding-top:100%;
-  background:#000;
-}
-.thumb-wrap img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:10px;
-}
-
-/* Overlays */
+/* overlay badges */
 .badge{
-  position:absolute;
-  bottom:8px;
-  padding:5px 8px;
-  font-size:13px;
-  font-weight:700;
-  border-radius:6px;
-  background:rgba(0,0,0,0.65);
-  color:#ffffff !important;
+  position:absolute;bottom:8px;padding:6px 8px;border-radius:8px;
+  background:rgba(0,0,0,0.6);color:#fff;font-weight:700;font-size:13px;
+  display:flex;align-items:center;gap:6px;
 }
-.views-badge{left:8px;}
-.duration-badge{right:8px;}
+.views-badge{left:8px}
+.duration-badge{right:8px}
 
-/* Play Button */
-.play-overlay{
-  position:absolute;
-  left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  width:78px;height:78px;
-  background:rgba(0,0,0,0.45);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
-}
-.play-overlay svg{
-  width:38px;height:38px;
-  fill:#fff;
-}
+/* text area */
+.body{padding:10px;display:flex;flex-direction:column;gap:8px}
+.title{font-weight:700;font-size:15px;line-height:1.2;color:#fff;min-height:44px}
 
-/* Text Area */
-.body{
-  padding:10px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
+/* like */
+.like-badge{background:var(--like);padding:6px 8px;border-radius:6px;font-size:13px;color:#fff;font-weight:700}
 
-.title{
-  font-weight:700;
-  font-size:15px;
-  line-height:1.25;
-  min-height:44px;
-  color:#ffffff;
-}
-
-.meta-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.like-badge{
-  background:rgba(0,0,0,0.65);
-  color:#ffffff !important;
-  padding:6px 8px;
-  border-radius:6px;
-  font-weight:800;
-  font-size:13px;
-}
-
-/* Ads */
-.ads{
-  max-width:980px;
-  margin:20px auto;
-  text-align:center;
-}
-.card a{color:inherit;text-decoration:none;display:block}
+/* ads container */
+.ads{max-width:980px;margin:18px auto;text-align:center}
 </style>
 </head>
 
@@ -176,88 +70,63 @@ body{
   <section id="grid" class="video-grid"></section>
 </main>
 
-<!-- SOCIAL BAR -->
+<!-- Social Bar -->
 <div class="ads">
 <script src="//pl27896379.effectivegatecpm.com/a0/33/d0/a033d08e95956fd914684b1fff0b8680.js"></script>
 </div>
 
-<!-- NATIVE -->
+<!-- Native Ad -->
 <div class="ads">
-  <script async src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"></script>
-  <div id="container-e1682f5b5155c961011e82faea551290"></div>
+<script async src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"></script>
+<div id="container-e1682f5b5155c961011e82faea551290"></div>
 </div>
 
-<!-- BOTTOM BANNER -->
+<!-- Bottom Banner -->
 <div class="ads">
 <script>
-atOptions={"key":"1535101a42bd09dee1fb390e6f781fe3","format":"iframe","height":250,"width":300,"params":{}};
+atOptions = {'key':'1535101a42bd09dee1fb390e6f781fe3','format':'iframe','height':250,'width':300,'params':{}};
 </script>
 <script src="//www.highperformanceformat.com/1535101a42bd09dee1fb390e6f781fe3/invoke.js"></script>
 </div>
 
 <script>
-/* JSON FORMAT:
-{
- "title":"Video Title",
- "thumb":"THUMB_URL",
- "video_url":"DIRECT_STREAM_URL",
- "views":"10.7k",
- "likes":"97%",
- "duration":"05:47"
-}
-*/
-
 async function loadVideos(){
- try{
-   const r = await fetch('videos.json',{cache:'no-store'});
-   const arr = await r.json();
-   render(arr);
- }catch(e){
-   document.getElementById('grid').innerHTML="<div style='padding:20px;color:#bbb'>No videos found</div>";
- }
+  const res = await fetch("videos.json",{cache:"no-store"});
+  const list = await res.json();
+  render(list);
 }
 
 function render(list){
- const grid=document.getElementById('grid');
- grid.innerHTML='';
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
 
- list.forEach(item=>{
-   const a=document.createElement('a');
-   a.href=item.video_url;
-   a.target="_blank"; /* direct video open */
+  list.forEach(v=>{
+    const a = document.createElement("a");
+    a.href = "video.html?src=" + encodeURIComponent(v.video_url);
+    a.target = "_self";
 
-   const card=document.createElement('article');
-   card.className='card';
+    const card = document.createElement("article");
+    card.className = "card";
 
-   card.innerHTML=`
-     <div class="thumb-wrap">
-       <img src="${escape(item.thumb)}" alt="${escape(item.title)}"/>
-       <div class="play-overlay">
-         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-       </div>
-       <div class="badge views-badge">👁️ ${escape(item.views)}</div>
-       <div class="badge duration-badge">⏱ ${escape(item.duration)}</div>
-     </div>
+    card.innerHTML = `
+      <div class="thumb-wrap">
+        <img src="${v.thumb}" alt="">
+        <div class="badge views-badge">👁️ ${v.views}</div>
+        <div class="badge duration-badge">⏱ ${v.duration}</div>
+      </div>
 
-     <div class="body">
-       <div class="title">${escape(item.title)}</div>
-       <div class="meta-row">
-         <div></div>
-         <div class="like-badge">👍 ${escape(item.likes)}</div>
-       </div>
-     </div>
-   `;
-   a.appendChild(card);
-   grid.appendChild(a);
- });
-}
+      <div class="body">
+        <div class="title">${v.title}</div>
+        <div class="like-badge">👍 ${v.likes}</div>
+      </div>
+    `;
 
-function escape(s){
- return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    a.appendChild(card);
+    grid.appendChild(a);
+  });
 }
 
 loadVideos();
 </script>
-
 </body>
 </html>
