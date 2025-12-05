@@ -1,50 +1,87 @@
 <!doctype html>
 <html lang="bn">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>BanglaHub — Player</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BanglaHub — Video</title>
+
 <style>
-body{margin:0;background:#000;color:#fff;font-family:Arial}
-.wrap{max-width:960px;margin:12px auto;padding:10px}
-.player{width:100%;background:#000;border-radius:10px;overflow:hidden}
-video{width:100%;display:block}
-iframe{border:0;width:100%}
+body{margin:0;background:#000;color:white;font-family:Arial}
+.wrap{max-width:900px;margin:10px auto;padding:10px}
+.player{background:#000;border-radius:10px;overflow:hidden}
+video{width:100%;height:auto;display:block}
 </style>
 </head>
-
 <body>
+
+<!-- 🔼 TOP BANNER -->
+<script type="text/javascript">
+  atOptions = {
+  	'key' : '30921df49dc35be6701cc3d7f8ca8108',
+  	'format' : 'iframe',
+  	'height' : 50,
+  	'width' : 320,
+  	'params' : {}
+  };
+</script>
+<script
+  type="text/javascript"
+  src="//www.highperformanceformat.com/30921df49dc35be6701cc3d7f8ca8108/invoke.js"
+></script>
+</div>
+
 <div class="wrap">
   <div id="playerBox" class="player"></div>
 </div>
 
+<!-- 🔽 NATIVE AD -->
+<script
+  async="async"
+  data-cfasync="false"
+  src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"
+></script>
+<div id="container-e1682f5b5155c961011e82faea551290"></div>
+</div>
+
+<!-- 🔽 SOCIAL BAR -->
+<script
+  type="text/javascript"
+  src="//pl27896379.effectivegatecpm.com/a0/33/d0/a033d08e95956fd914684b1fff0b8680.js"
+></script>
+</div>
+
 <script>
-const p = new URLSearchParams(location.search);
-const src = decodeURIComponent(p.get("src")||"");
-const box = document.getElementById("playerBox");
+const q = new URLSearchParams(location.search);
+const src = decodeURIComponent(q.get("src") || "");
 
 if(!src){
-  box.innerHTML = "<div style='padding:20px'>Video not found</div>";
-}
+  document.getElementById("playerBox").innerHTML="<div style='padding:20px;color:#ccc'>Video not found</div>";
+}else{
+  const box=document.getElementById("playerBox");
 
-// Google Drive
-else if(src.includes("drive.google.com")){
-    const id = src.match(/\/d\/([^\/]+)/)?.[1];
-    if(id){
-        box.innerHTML = `
-        <iframe height="560" allow="autoplay; fullscreen"
-        src="https://drive.google.com/file/d/${id}/preview"></iframe>`;
-    } else {
-        box.innerHTML = `<video controls autoplay src="${src}"></video>`;
-    }
-}
-// MP4, Dropbox
-else if(src.endsWith(".mp4") || src.includes("raw=1")){
-    box.innerHTML = `<video controls autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
-}
-// Others (embed)
-else{
-    box.innerHTML = `<iframe height="560" allow="autoplay; fullscreen" src="${src}"></iframe>`;
+  if(src.includes("drive.google.com") && src.includes("/d/")){
+    let idMatch = src.match(/\/d\/([^\/]+)/);
+    let id = idMatch ? idMatch[1] : "";
+
+    let iframe=document.createElement("iframe");
+    iframe.src="https://drive.google.com/file/d/"+id+"/preview";
+    iframe.width="100%";iframe.height="520";
+    iframe.allow="autoplay; fullscreen";iframe.style.border="0";
+    box.appendChild(iframe);
+
+  } else if(src.endsWith(".mp4") || src.includes("?raw=1")){
+    let v=document.createElement("video");
+    v.controls=true;v.autoplay=true;v.playsInline=true;
+    v.src=src;
+    box.appendChild(v);
+  } else {
+    let iframe=document.createElement("iframe");
+    iframe.src=src;
+    iframe.width="100%";iframe.height="520";
+    iframe.allow="autoplay; fullscreen";
+    iframe.style.border="0";
+    box.appendChild(iframe);
+  }
 }
 </script>
 
