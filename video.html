@@ -6,56 +6,47 @@
 <title>BanglaHub — Player</title>
 <style>
 body{margin:0;background:#000;color:#fff;font-family:Arial}
-.wrap{max-width:980px;margin:12px auto;padding:10px}
-.player{width:100%;background:#000;border-radius:8px;overflow:hidden}
-video{width:100%;height:auto;display:block}
+.wrap{max-width:960px;margin:12px auto;padding:10px}
+.player{width:100%;background:#000;border-radius:10px;overflow:hidden}
+video{width:100%;display:block}
+iframe{border:0;width:100%}
 </style>
 </head>
+
 <body>
 <div class="wrap">
-  <div id="playerBox" class="player">
-    <!-- will inject -->
-  </div>
+  <div id="playerBox" class="player"></div>
 </div>
 
 <script>
 const p = new URLSearchParams(location.search);
-const src = p.get('src') || '';
-if(!src){
-  document.getElementById('playerBox').innerHTML = '<div style="padding:20px;color:#ddd">Video not found</div>';
-} else {
-  const url = decodeURIComponent(src);
+const src = decodeURIComponent(p.get("src")||"");
+const box = document.getElementById("playerBox");
 
-  // If google drive preview URL (contains /file/d/ID or uc?export) -> use iframe preview for Drive
-  if(url.includes('drive.google.com') && url.includes('/file/d/')){
-    const idMatch = url.match(/\/d\/([^\/\?]+)/);
-    const id = idMatch ? idMatch[1] : null;
+if(!src){
+  box.innerHTML = "<div style='padding:20px'>Video not found</div>";
+}
+
+// Google Drive
+else if(src.includes("drive.google.com")){
+    const id = src.match(/\/d\/([^\/]+)/)?.[1];
     if(id){
-      const iframe = document.createElement('iframe');
-      iframe.src = 'https://drive.google.com/file/d/' + encodeURIComponent(id) + '/preview';
-      iframe.width='100%'; iframe.height='560'; iframe.allow='autoplay;fullscreen'; iframe.style.border='0';
-      document.getElementById('playerBox').appendChild(iframe);
+        box.innerHTML = `
+        <iframe height="560" allow="autoplay; fullscreen"
+        src="https://drive.google.com/file/d/${id}/preview"></iframe>`;
     } else {
-      // fallback: open src directly in html5 video
-      const v = document.createElement('video');
-      v.controls = true; v.autoplay = true;
-      v.src = url; document.getElementById('playerBox').appendChild(v);
+        box.innerHTML = `<video controls autoplay src="${src}"></video>`;
     }
-  } else if(url.endsWith('.mp4') || url.includes('?raw=1') || url.includes('uc?export=download')){
-    // direct mp4 -> html5 player
-    const v = document.createElement('video');
-    v.controls = true; v.autoplay = true; v.playsInline = true;
-    const srcEl = document.createElement('source');
-    srcEl.src = url; srcEl.type = 'video/mp4';
-    v.appendChild(srcEl);
-    document.getElementById('playerBox').appendChild(v);
-  } else {
-    // generic iframe embed (bunny, streamable, etc.)
-    const iframe = document.createElement('iframe');
-    iframe.src = url; iframe.width='100%'; iframe.height='560'; iframe.allow='autoplay;fullscreen'; iframe.style.border='0';
-    document.getElementById('playerBox').appendChild(iframe);
-  }
+}
+// MP4, Dropbox
+else if(src.endsWith(".mp4") || src.includes("raw=1")){
+    box.innerHTML = `<video controls autoplay playsinline><source src="${src}" type="video/mp4"></video>`;
+}
+// Others (embed)
+else{
+    box.innerHTML = `<iframe height="560" allow="autoplay; fullscreen" src="${src}"></iframe>`;
 }
 </script>
+
 </body>
 </html>
