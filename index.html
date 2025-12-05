@@ -9,130 +9,150 @@
 :root{
   --bg:#07181a;
   --card:#0f2a2b;
-  --muted:#b9caca;
-  --like:#184b56;
   --text:#ffffff;
-  --badge-bg:rgba(0,0,0,0.65);
+  --badge:#000000a0;
+  --like:#184b56;
 }
-
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial}
 
+/* header */
 .header{
   display:flex;justify-content:space-between;align-items:center;
-  padding:12px;background:#0b3a3b;
+  padding:12px 16px;background:#0b3a3b;
 }
-.brand{font-weight:800;font-size:22px}
-.join{
-  background:#00c2ff;color:#002;padding:7px 12px;
-  border-radius:8px;font-weight:700;text-decoration:none
-}
+.brand{font-size:22px;font-weight:800;color:white}
+.join{background:#00c2ff;color:#002;padding:6px 12px;border-radius:8px;font-weight:700;text-decoration:none}
 
-.container{max-width:1200px;margin:14px auto;padding:0 12px}
+/* layout */
+.container{max-width:1200px;margin:12px auto;padding:0 12px}
 .video-grid{
-  display:grid;gap:14px;
+  display:grid;
   grid-template-columns:repeat(4,1fr);
+  gap:14px;
 }
-@media(max-width:900px){
-  .video-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:520px){
-  .video-grid{grid-template-columns:repeat(2,1fr)}
-}
+@media(max-width:1024px){ .video-grid{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:600px){  .video-grid{grid-template-columns:repeat(2,1fr);} }
 
-.card{background:var(--card);border-radius:10px;overflow:hidden}
-.thumb-wrap{position:relative;width:100%;padding-top:100%;background:#000}
+/* card */
+.card{
+  background:var(--card);border-radius:10px;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.thumb-wrap{
+  position:relative;width:100%;padding-top:100%;background:#000;
+}
 .thumb-wrap img{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;border-radius:6px;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  border-radius:6px;
 }
 
+/* overlays */
 .badge{
-  position:absolute;bottom:8px;padding:5px 8px;
-  border-radius:6px;background:var(--badge-bg);
-  font-size:13px;font-weight:700;display:flex;gap:5px;
+  position:absolute;bottom:8px;padding:5px 8px;border-radius:6px;
+  background:var(--badge);color:white;font-size:13px;font-weight:700;
 }
-.views{left:8px}
-.duration{right:8px}
+.views-badge{left:8px;}
+.duration-badge{right:8px;}
 
 .play-overlay{
   position:absolute;left:50%;top:50%;
   transform:translate(-50%,-50%);
-  width:80px;height:80px;border-radius:50%;
+  width:70px;height:70px;border-radius:50%;
   background:rgba(0,0,0,0.45);
   display:flex;align-items:center;justify-content:center;
 }
-.play-overlay svg{width:40px;height:40px;fill:white}
+.play-overlay svg{width:35px;height:35px;fill:#fff;}
 
+/* bottom text */
 .body{padding:10px}
-.title{
-  font-size:15px;font-weight:700;line-height:1.25;
-  color:var(--text);
-}
+.title{font-size:15px;font-weight:700;min-height:40px}
+.meta-row{display:flex;justify-content:space-between;margin-top:6px}
 .like-badge{
-  background:var(--like);padding:6px 8px;border-radius:6px;
-  font-size:13px;font-weight:700;margin-top:6px;width:max-content
+  background:var(--like);padding:5px 8px;border-radius:6px;color:white;
+  font-size:13px;font-weight:700;
 }
 
-.card a{text-decoration:none;color:inherit;display:block}
+.ads{text-align:center;margin:12px auto;max-width:980px}
 </style>
 </head>
 
 <body>
+
+<!-- 🔼 TOP BANNER AD -->
+<script type="text/javascript">
+  atOptions = {
+  	'key' : '30921df49dc35be6701cc3d7f8ca8108',
+  	'format' : 'iframe',
+  	'height' : 50,
+  	'width' : 320,
+  	'params' : {}
+  };
+</script>
+<script
+  type="text/javascript"
+  src="//www.highperformanceformat.com/30921df49dc35be6701cc3d7f8ca8108/invoke.js"
+></script>
+</div>
 
 <header class="header">
   <div class="brand">BanglaHub</div>
   <a class="join" href="https://t.me/DSSvdo" target="_blank">Join Us</a>
 </header>
 
-<div class="container">
+<main class="container">
   <section id="grid" class="video-grid"></section>
-</div>
+</main>
 
-<!-- Social Bar -->
+<!-- 🔽 SOCIAL BAR -->
 <script
   type="text/javascript"
   src="//pl27896379.effectivegatecpm.com/a0/33/d0/a033d08e95956fd914684b1fff0b8680.js"
 ></script>
+</div>
+
+<!-- 🔽 NATIVE AD (bottom) -->
+<script
+  async="async"
+  data-cfasync="false"
+  src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"
+></script>
+<div id="container-e1682f5b5155c961011e82faea551290"></div>
+
+</div>
 
 <script>
 async function loadVideos(){
-  try{
-    const r = await fetch("videos.json?"+Date.now());
-    const data = await r.json();
-    render(data);
-  }catch(e){
-    document.getElementById("grid").innerHTML = "<div style='color:#ccc;padding:20px'>Failed to load videos</div>";
-  }
+  const r = await fetch("videos.json",{cache:"no-store"});
+  const data = await r.json();
+  render(data);
 }
 
 function render(list){
   const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-
+  grid.innerHTML="";
   list.forEach(v=>{
-    const a = document.createElement("a");
-    a.href = "countdown.html?src=" + encodeURIComponent(v.video_url);
+    const a=document.createElement("a");
+    a.href="video.html?src="+encodeURIComponent(v.video_url);
 
-    const card = document.createElement("div");
-    card.className = "card";
+    const card=document.createElement("article");
+    card.className="card";
 
-    card.innerHTML = `
+    card.innerHTML=`
       <div class="thumb-wrap">
         <img src="${v.thumb}">
-        <div class="play-overlay">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div class="badge views">👁️ ${v.views}</div>
-        <div class="badge duration">⏱ ${v.duration}</div>
+        <div class="play-overlay"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg></div>
+        <div class="badge views-badge">👁 ${v.views}</div>
+        <div class="badge duration-badge">⏱ ${v.duration}</div>
       </div>
-
       <div class="body">
         <div class="title">${v.title}</div>
-        <div class="like-badge">👍 ${v.likes}</div>
+        <div class="meta-row">
+          <span></span>
+          <div class="like-badge">👍 ${v.likes}</div>
+        </div>
       </div>
     `;
-
     a.appendChild(card);
     grid.appendChild(a);
   });
