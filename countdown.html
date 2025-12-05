@@ -1,47 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Loading...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Please Wait...</title>
 
 <style>
 body{
-    background:#0a1a24;
-    color:white;
-    text-align:center;
-    font-family:Arial;
+  margin:0;
+  padding:0;
+  background:#07181a;
+  color:white;
+  font-family:Arial;
+  text-align:center;
 }
+
 .box{
-    margin-top:120px;
+  margin-top:60px;
 }
-.num{
-    font-size:80px;
-    font-weight:bold;
-    margin-top:20px;
+
+.timer{
+  font-size:55px;
+  font-weight:800;
+  margin-top:20px;
+  color:#ffcc00;
+}
+
+.msg{
+  font-size:20px;
+  margin-top:10px;
+}
+
+.ads{
+  margin-top:25px;
+}
+
+/* countdown circle */
+.circle{
+  width:120px;
+  height:120px;
+  margin:25px auto;
+  border-radius:50%;
+  border:8px solid rgba(255,255,255,0.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  font-weight:bold;
+  color:#ffcc00;
 }
 </style>
 </head>
+
 <body>
 
 <div class="box">
-    <h2>Your Video Is Loading...</h2>
-    <div id="count" class="num">7</div>
+  <div class="msg">আপনার ভিডিও প্রস্তুত হচ্ছে...</div>
+
+  <div class="circle" id="count">9</div>
+  <div class="msg">অনুগ্রহ করে অপেক্ষা করুন</div>
 </div>
 
+<!-- Banner Ad -->
+<div class="ads">
+<script type="text/javascript">
+atOptions = {
+'key' : '30921df49dc35be6701cc3d7f8ca8108',
+'format' : 'iframe',
+'height' : 50,
+'width' : 320,
+'params' : {}
+};
+</script>
+<script src="//www.highperformanceformat.com/30921df49dc35be6701cc3d7f8ca8108/invoke.js"></script>
+</div>
+
+<!-- Native Ad -->
+<div class="ads">
+<script async src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"></script>
+<div id="container-e1682f5b5155c961011e82faea551290"></div>
+</div>
+
+<!-- Social Bar -->
+<div class="ads">
+<script src="//pl27896379.effectivegatecpm.com/a0/33/d0/a033d08e95956fd914684b1fff0b8680.js"></script>
+</div>
+
+<!-- Popunder -->
+<script type='text/javascript' src='//pl6698754.effectivedisplaycontent.com/b9/11/4d/b9114d7c23dafe8a8810d8e0904e3aac.js'></script>
+
 <script>
-let sec=7;
-let param = new URLSearchParams(location.search);
-let url = param.get("url");
+// get video link from URL
+const urlParams = new URLSearchParams(window.location.search);
+const videoURL = urlParams.get("src");
 
-let timer=setInterval(()=>{
-    sec--;
-    document.getElementById("count").innerText=sec;
+// countdown
+let time = 9;
+const countDiv = document.getElementById("count");
 
-    if(sec<=0){
-        clearInterval(timer);
-        window.location.assign("video.html?src="+encodeURIComponent(url));
-    }
+const timer = setInterval(()=>{
+  time--;
+  countDiv.innerText = time;
+
+  if(time <= 0){
+    clearInterval(timer);
+    window.location.href = "video.html?src=" + encodeURIComponent(videoURL);
+  }
 },1000);
 </script>
 
